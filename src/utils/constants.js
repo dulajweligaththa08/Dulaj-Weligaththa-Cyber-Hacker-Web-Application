@@ -27,7 +27,7 @@ export const PERSONAL_INFO = {
     github: "https://github.com",
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
-    whatsapp: "https://wa.me/94771234567"
+    whatsapp: "https://wa.me/94778152165"
   }
 };
 
