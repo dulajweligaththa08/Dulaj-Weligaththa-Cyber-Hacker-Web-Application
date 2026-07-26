@@ -99,7 +99,8 @@ export const About = () => {
             {/* Download CV CTA */}
             <div className="pt-4">
               <a
-                href="#contact"
+                href="/cv.pdf"
+                download="Dulaj_Weligaththa_CV.pdf"
                 className="inline-flex items-center space-x-3 px-6 py-3.5 rounded-lg font-orbitron text-xs sm:text-sm font-bold text-white bg-[#171717] border border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.2)]"
               >
                 <Download size={16} />

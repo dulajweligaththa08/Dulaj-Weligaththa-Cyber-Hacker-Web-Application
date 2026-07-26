@@ -7,12 +7,19 @@ export const Portfolio = () => {
   const [selectedFilter, setSelectedFilter] = useState('ALL');
   const [activeProjectModal, setActiveProjectModal] = useState(null);
   const [permissionAlert, setPermissionAlert] = useState(null); // 'demo' | 'source'
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const INITIAL_PROJECTS_LIMIT = 3;
 
   const filters = ['ALL', 'Mobile', 'Web', 'Full Stack', 'Backend'];
 
   const filteredProjects = selectedFilter === 'ALL'
     ? PROJECTS
     : PROJECTS.filter(p => p.category === selectedFilter);
+
+  const displayedProjects = isExpanded
+    ? filteredProjects
+    : filteredProjects.slice(0, INITIAL_PROJECTS_LIMIT);
 
   const handleRestrictedClick = (type) => {
     setPermissionAlert(type);
@@ -43,7 +50,10 @@ export const Portfolio = () => {
           {filters.map((filter) => (
             <button
               key={filter}
-              onClick={() => setSelectedFilter(filter)}
+              onClick={() => {
+                setSelectedFilter(filter);
+                setIsExpanded(false);
+              }}
               className={`px-5 py-2 rounded-lg font-orbitron text-xs font-semibold tracking-wider transition-all duration-200 ${
                 selectedFilter === filter
                   ? 'bg-[#D4AF37] text-black shadow-[0_0_20px_#D4AF37]'
@@ -57,7 +67,7 @@ export const Portfolio = () => {
 
         {/* Projects Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, idx) => (
+          {displayedProjects.map((project, idx) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
@@ -120,6 +130,17 @@ export const Portfolio = () => {
             </motion.div>
           ))}
         </div>
+
+        {filteredProjects.length > INITIAL_PROJECTS_LIMIT && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="px-6 py-3 rounded-lg font-orbitron text-xs font-semibold tracking-wider transition-all duration-200 bg-[#171717] text-[#D4AF37] border border-[#D4AF37]/50 hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-black hover:shadow-[0_0_20px_#D4AF37]"
+            >
+              {isExpanded ? 'SHOW LESS' : 'SHOW MORE'}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ── Project Detail Modal ── */}
